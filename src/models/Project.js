@@ -24,6 +24,10 @@ class Project {
         this.#tasks.push(newTask);
     }
 
+    deleteAllTasks() {
+        this.#tasks = [];
+    }
+
     deleteTask(task_title) {
         this.#tasks = this.#tasks.filter((task) => task.title !== task_title);
     }

@@ -1,6 +1,6 @@
 import bindButtons, {newClickBind} from '../dom/binding.js';
 import { projectsStorage } from '../data/storage.js';
-import { renderSpecificProjectContent} from './content.js';
+import { renderSpecificProjectContent, renderHomeContent } from './content.js';
 
 function createProjectList() {
     const projectDiv = document.querySelector(".projects");
@@ -9,9 +9,23 @@ function createProjectList() {
     const projects = projectsStorage.getProjects();
     projects.forEach(proj => {
         const projectLI = document.createElement("li");
-        projectLI.textContent = proj.name;
+        const projectName = document.createElement("span");
+        projectName.textContent = proj.name;
         
-        newClickBind(projectLI, renderSpecificProjectContent.bind(this, proj.name));
+        newClickBind(projectName, renderSpecificProjectContent.bind(this, proj.name));
+
+        const deleteBtn = document.createElement('button');
+        deleteBtn.textContent = "X";
+        
+        newClickBind(deleteBtn, () => {
+            proj.deleteAllTasks();
+            projectsStorage.deleteProject(proj.name);
+            refreshProjectsList();
+            renderHomeContent();
+        });
+
+        projectLI.appendChild(projectName);
+        projectLI.appendChild(deleteBtn);
 
         projectsUL.appendChild(projectLI);
     });

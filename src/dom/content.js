@@ -1,6 +1,9 @@
 import { projectsStorage } from '../data/storage.js';
 import { clearContentArea } from './UI.js';
 import { newClickBind } from '../dom/binding.js';
+import Task from '../models/Task';
+import Project from '../models/Project';
+import moment from "moment";
 
 const contentDiv = document.getElementsByClassName('content')[0];
 
@@ -23,6 +26,21 @@ export function renderHomeContent() {
             contentDiv.appendChild(deleteBtn);          
         });
     });
+
+    const addTaskBtn = document.createElement("button");
+    addTaskBtn.textContent = "Add Task!";
+
+    newClickBind(addTaskBtn, () => {
+
+        // To Change
+        const taskName = prompt("Task Name?");
+
+        const dsa = new Task(taskName, "dsadsa", moment());
+        projects[0].addTask(dsa);
+
+        renderHomeContent();
+    })
+    contentDiv.appendChild(addTaskBtn);
 }
 
 export function renderTodayContent() {
@@ -85,4 +103,20 @@ export function renderSpecificProjectContent(proj_name) {
         contentDiv.append(task.title);  
         contentDiv.appendChild(deleteBtn);    
     });
+
+    const addTaskBtn = document.createElement("button");
+    addTaskBtn.textContent = "Add Task!";
+
+    newClickBind(addTaskBtn, () => {
+
+        // To Change
+        const taskName = prompt("Task Name?");
+
+        const dsa = new Task(taskName, "dsadsa", moment());
+        specificProject.addTask(dsa);
+
+        renderSpecificProjectContent(specificProject.name);
+
+    })
+    contentDiv.appendChild(addTaskBtn);
 }
