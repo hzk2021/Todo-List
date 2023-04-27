@@ -3,39 +3,63 @@ import Project from '../models/Project';
 import moment from "moment";
 
 export let projectsStorage = (() => {
-    let projects = [];
 
-    // Default 'project" and 'tasks'
-    let homeProject = new Project("home");
-    let taskOne = new Task('brush teeth', 'with colgate', moment("2023-04-22"));
-    let taskTwo = new Task('eat', 'yummy', moment("2023-04-26"));
-    let taskThree = new Task('sleep', 'comfort', moment("2023-04-29"));
+    let projects = JSON.parse(localStorage.getItem("projects") || "[]");
 
-    homeProject.addTask(taskOne);
-    homeProject.addTask(taskTwo);
-    homeProject.addTask(taskThree);
+    if (projects == [] || projects == null || projects.length == 0) {
+        // Default 'project" and 'tasks'
+        let homeProject = new Project("home");
+        let taskOne = new Task('brush teeth', 'with colgate', moment("2023-04-22"));
+        let taskTwo = new Task('eat', 'yummy', moment("2023-04-26"));
+        let taskThree = new Task('sleep', 'comfort', moment("2023-04-29"));
 
-    projects.push(homeProject);
+        homeProject.addTask(taskOne);
+        homeProject.addTask(taskTwo);
+        homeProject.addTask(taskThree);
 
-    let dsadsa = new Project("21");
-    projects.push(dsadsa);
+        projects.push(homeProject);
+    }
 
     function getProjects() {
-        return projects;
+
+        const projs = projects.map((proj) => {
+            const deserializeProject = new Project(proj.name);
+            proj.tasks.forEach(task => {
+                const newTask = new Task(task.title, task.description, task.dueDate);
+                deserializeProject.addTask(newTask);
+
+                return task;
+            });
+            return deserializeProject;
+        });
+
+        localStorage.setItem('projects', JSON.stringify(projects));
+
+        return projs;
+
     }
 
     function getProject(proj_name) {
-        return projects.find(proj => proj.name == proj_name);
+
+        localStorage.setItem('projects', JSON.stringify(projects));
+
+        return getProjects().find(proj => proj.name == proj_name);
     }
 
     function addProject(new_project) {
-        projects.push(new_project)
+        projects.push(new_project);
+        localStorage.setItem('projects', JSON.stringify(projects));
     }
 
     function deleteProject(proj_name) {
         projects = projects.filter(proj => proj.name != proj_name);
+        localStorage.setItem('projects', JSON.stringify(projects));
     }
 
-    return {getProjects, getProject, addProject, deleteProject};
+    function saveLocalAll(updated_projects) {
+        projects = updated_projects;
+    }
+    
+    return {getProjects, getProject, addProject, deleteProject, saveLocalAll};
 
 })();

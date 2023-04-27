@@ -1,23 +1,21 @@
 import bindButtons, {newClickBind} from '../dom/binding.js';
 import { projectsStorage } from '../data/storage.js';
-import { renderSpecificProjectContent, renderHomeContent } from './content.js';
+import { renderSpecificProjectContent, renderHomeContent, createButtonBinding } from './content.js';
+import Project from '../models/Project.js';
 
 function createProjectList() {
     const projectDiv = document.querySelector(".projects");
     const projectsUL = document.createElement("ul");
     
     const projects = projectsStorage.getProjects();
-    projects.forEach(proj => {
+    projects.filter(proj => proj != projects[0]).forEach(proj => {
         const projectLI = document.createElement("li");
         const projectName = document.createElement("span");
         projectName.textContent = proj.name;
         
         newClickBind(projectName, renderSpecificProjectContent.bind(this, proj.name));
 
-        const deleteBtn = document.createElement('button');
-        deleteBtn.textContent = "X";
-        
-        newClickBind(deleteBtn, () => {
+        const deleteBtn = createButtonBinding("X", () => {
             proj.deleteAllTasks();
             projectsStorage.deleteProject(proj.name);
             refreshProjectsList();
@@ -30,12 +28,31 @@ function createProjectList() {
         projectsUL.appendChild(projectLI);
     });
 
-    projectDiv.insertBefore(projectsUL, projectDiv.children[1]);
+    projectDiv.append(projectsUL);
+
+    const addProjectBtn = createButtonBinding("Add Project", () => {
+        const newProjectName = prompt("New Project's Name?");
+
+        if (newProjectName == null || newProjectName == "") return;
+
+        const newProject = new Project(newProjectName)
+        projectsStorage.addProject(newProject);
+        
+        renderSpecificProjectContent(newProject.name);
+        refreshProjectsList();
+    });
+
+    projectDiv.appendChild(addProjectBtn);
 }
 
 function deleteProjectsList() {
     const projectsUL = document.querySelector(".projects ul");
-    projectsUL.textContent = ""
+    projectsUL.remove();
+    
+    const projectDiv = document.querySelector(".projects");
+    const addProjectBtn = document.querySelector(".projects > button");
+
+    projectDiv.contains(addProjectBtn) ? addProjectBtn.remove() : null;
 }
 
 export function refreshProjectsList() {
