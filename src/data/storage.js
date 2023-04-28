@@ -9,9 +9,9 @@ export let projectsStorage = (() => {
     if (projects == [] || projects == null || projects.length == 0) {
         // Default 'project" and 'tasks'
         let homeProject = new Project("home");
-        let taskOne = new Task('brush teeth', 'with colgate', moment("2023-04-22"));
-        let taskTwo = new Task('eat', 'yummy', moment("2023-04-26"));
-        let taskThree = new Task('sleep', 'comfort', moment("2023-04-29"));
+        let taskOne = new Task('brush teeth', 'hygiene is important!', moment("2023-04-22"));
+        let taskTwo = new Task('workout', 'need to keep fit', moment("2023-04-26"));
+        let taskThree = new Task('revision', 'study!!!', moment("2023-04-29"));
 
         homeProject.addTask(taskOne);
         homeProject.addTask(taskTwo);

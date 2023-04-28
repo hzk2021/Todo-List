@@ -3,8 +3,15 @@
 * {
     box-sizing: border-box;
 }
+
+html {
+    position: relative;
+    min-height: 100vh;
+}
+
 body {
-    height: 100vh;
+    min-height: 100vh;
+
     min-width: 300px;
 
     display: grid;
@@ -121,8 +128,7 @@ main {
 
 .content {
     text-align: center;
-    max-width: 700px;
-    margin: 1rem auto;
+    margin: 1rem 1rem 1rem 2rem;
 }
 
 .taskContainer {
@@ -132,6 +138,10 @@ main {
     padding: 5px;
 
     font-size: 1.2rem;
+
+    background: #eee;
+    border-left: 5px solid black;
+
 }
 
 .taskContainer div {
@@ -143,21 +153,20 @@ main {
 .taskContainer button {
     border: none;
     background: none;
-    padding: 1rem;
+    padding: 0.7rem;
 
     font-family: inherit;
 }
 
 .taskContainer button:first-child {
     border: 2px solid #198754;
+    border-radius: 3px;
 }
 
 .taskContainer button:nth-child(2) {
-    border: 2px solid #ffc107;
 }
 
 .taskContainer button:last-child {
-    border: 2px solid #dc3545;
 }
 
 .add-task-btn {
@@ -214,12 +223,15 @@ footer {
 
 @media (width <= 767px) {
     .content {
-        max-width: 500px;
         font-size: 0.5rem;
     }
 }
 
 @media (width <= 539px) {
+
+    .content {
+        margin-bottom: 5rem;
+    }
     .taskContainer {
         font-size: 1rem;
     }

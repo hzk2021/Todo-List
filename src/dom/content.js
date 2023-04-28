@@ -50,7 +50,7 @@ export function renderHomeContent() {
                 alert(`\nTitle: ${task.title}\n\nDescription: ${task.description} \n\nDue Date: ${moment(task.dueDate).format('LL')}`);
             });
 
-            const editBtn = createButtonBinding('Edit', () => {
+            const editBtn = createButtonBinding('🖊️', () => {
                 const newTitle = prompt("New Title?", task.title);
                 const newDescription = prompt("New Description?", task.description);
                 const date = prompt("Due Date? (DD/MM/YYYY)", moment(task.dueDate).format("DD/MM/YYYY"));
@@ -66,7 +66,7 @@ export function renderHomeContent() {
                 renderHomeContent();
             });
 
-            const deleteBtn = createButtonBinding('Delete', () => {
+            const deleteBtn = createButtonBinding('🗑️', () => {
                 proj.deleteTask(task.title);
 
                 projectsStorage.saveLocalAll(projects);
@@ -125,7 +125,7 @@ export function renderTodayContent() {
                 alert(`\nTitle: ${task.title}\n\nDescription: ${task.description} \n\nDue Date: ${moment(task.dueDate).format('LL')}`);
             });
 
-            const editBtn = createButtonBinding('Edit', () => {
+            const editBtn = createButtonBinding('🖊️', () => {
                 const newTitle = prompt("New Title?", task.title);
                 const newDescription = prompt("New Description?", task.description);
                 const date = prompt("Due Date? (DD/MM/YYYY)", moment(task.dueDate).format("DD/MM/YYYY"));
@@ -184,7 +184,7 @@ export function renderWeekContent() {
                 alert(`\nTitle: ${task.title}\n\nDescription: ${task.description} \n\nDue Date: ${moment(task.dueDate).format('LL')}`);
             });
 
-            const editBtn = createButtonBinding('Edit', () => {
+            const editBtn = createButtonBinding('🖊️', () => {
                 const newTitle = prompt("New Title?", task.title);
                 const newDescription = prompt("New Description?", task.description);
                 const date = prompt("Due Date? (DD/MM/YYYY)", moment(task.dueDate).format("DD/MM/YYYY"));
@@ -200,7 +200,7 @@ export function renderWeekContent() {
                 renderWeekContent();
             });
 
-            const deleteBtn = createButtonBinding('Delete!', () => {
+            const deleteBtn = createButtonBinding('🗑️', () => {
                 proj.deleteTask(task.title);
                 
                 projectsStorage.saveLocalAll(projects);
@@ -244,7 +244,7 @@ export function renderSpecificProjectContent(proj_name) {
             alert(`\nTitle: ${task.title}\n\nDescription: ${task.description} \n\nDue Date: ${moment(task.dueDate).format('LL')}`);
         });
 
-        const editBtn = createButtonBinding('Edit', () => {
+        const editBtn = createButtonBinding('🖊️', () => {
             const newTitle = prompt("New Title?", task.title);
             const newDescription = prompt("New Description?", task.description);
             const date = prompt("Due Date? (DD/MM/YYYY)", moment(task.dueDate).format("DD/MM/YYYY"));
@@ -260,7 +260,7 @@ export function renderSpecificProjectContent(proj_name) {
             renderSpecificProjectContent(specificProject.name);
         });
 
-        const deleteBtn = createButtonBinding('Delete', () => {
+        const deleteBtn = createButtonBinding('🗑️', () => {
             specificProject.deleteTask(task.title);
 
             projectsStorage.saveLocalAll(projects);
