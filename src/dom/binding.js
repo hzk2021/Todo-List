@@ -11,6 +11,7 @@ export default function bindButtons() {
     const homeBtn = document.getElementById("home-btn");
     const todayBtn = document.getElementById("today-btn");
     const thisWeekBtn = document.getElementById("this-week-btn");
+    const burgerIcon = document.getElementById("burger");
 
     homeBtn.addEventListener('click', () => {
         renderHomeContent();
@@ -22,5 +23,9 @@ export default function bindButtons() {
 
     thisWeekBtn.addEventListener('click', () => {
         renderWeekContent();
+    });
+
+    burgerIcon.addEventListener('click', () => {
+        document.querySelector('nav').classList.toggle('visible-block');
     });
 }

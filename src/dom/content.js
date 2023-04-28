@@ -6,6 +6,20 @@ import Project from '../models/Project';
 import moment from "moment";
 
 const contentDiv = document.getElementsByClassName('content')[0];
+const homeBtn = document.getElementById("home-btn");
+const todayBtn = document.getElementById("today-btn");
+const thisWeekBtn = document.getElementById("this-week-btn");
+
+export function removeAllHighlight() {
+    homeBtn.classList.remove("selected");
+    todayBtn.classList.remove("selected");
+    thisWeekBtn.classList.remove("selected");
+
+    document.querySelector(".projects ul").childNodes.forEach(node => {
+        node.classList.remove("selected");
+    });
+
+}
 
 export function createButtonBinding(text, action) {
     const newBtn = document.createElement('button');
@@ -18,6 +32,9 @@ export function createButtonBinding(text, action) {
 
 export function renderHomeContent() {
     clearContentArea();
+
+    removeAllHighlight();
+    homeBtn.classList.add("selected");
 
     const section = document.createElement("h1");
     section.textContent = "Name"
@@ -49,7 +66,7 @@ export function renderHomeContent() {
                 renderHomeContent();
             });
 
-            const deleteBtn = createButtonBinding('Delete!', () => {
+            const deleteBtn = createButtonBinding('Delete', () => {
                 proj.deleteTask(task.title);
 
                 projectsStorage.saveLocalAll(projects);
@@ -83,11 +100,16 @@ export function renderHomeContent() {
         projectsStorage.saveLocalAll(projects);
         renderHomeContent();
     })
+    addTaskBtn.classList.add("add-task-btn");
+
     contentDiv.appendChild(addTaskBtn);
 }
 
 export function renderTodayContent() {
     clearContentArea();
+
+    removeAllHighlight();
+    todayBtn.classList.add("selected");
 
     const section = document.createElement("h1");
     section.textContent = "Today"
@@ -144,6 +166,9 @@ export function renderTodayContent() {
 export function renderWeekContent() {
     clearContentArea();
     
+    removeAllHighlight();
+    thisWeekBtn.classList.add("selected");
+
     const section = document.createElement("h1");
     section.textContent = "This Week"
     contentDiv.append(section);
@@ -199,6 +224,11 @@ export function renderWeekContent() {
 export function renderSpecificProjectContent(proj_name) {
     clearContentArea();
 
+    removeAllHighlight();
+    document.querySelector(".projects ul").childNodes.forEach(node => {
+        node.firstChild.textContent == proj_name ? node.classList.add("selected") : null;
+    });
+
     const section = document.createElement("h1");
     section.textContent = `Project: ${proj_name}`;
     contentDiv.append(section);
@@ -230,7 +260,7 @@ export function renderSpecificProjectContent(proj_name) {
             renderSpecificProjectContent(specificProject.name);
         });
 
-        const deleteBtn = createButtonBinding('Delete!', () => {
+        const deleteBtn = createButtonBinding('Delete', () => {
             specificProject.deleteTask(task.title);
 
             projectsStorage.saveLocalAll(projects);
@@ -251,6 +281,7 @@ export function renderSpecificProjectContent(proj_name) {
 
     const addTaskBtn = document.createElement("button");
     addTaskBtn.textContent = "Add Task!";
+    addTaskBtn.classList.add("add-task-btn");
 
     newClickBind(addTaskBtn, () => {
 

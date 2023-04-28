@@ -22,6 +22,8 @@ function createProjectList() {
             renderHomeContent();
         });
 
+        deleteBtn.id = 'delete-btn';
+
         projectLI.appendChild(projectName);
         projectLI.appendChild(deleteBtn);
 
@@ -41,6 +43,8 @@ function createProjectList() {
         renderSpecificProjectContent(newProject.name);
         refreshProjectsList();
     });
+
+    addProjectBtn.id = 'add-btn';
 
     projectDiv.appendChild(addProjectBtn);
 }
@@ -67,5 +71,6 @@ export function clearContentArea() {
 
 export function initUI() {
     createProjectList();
+    renderHomeContent();
     bindButtons();
 }

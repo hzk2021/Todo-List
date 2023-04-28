@@ -1,15 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&family=Yusei+Magic&display=swap');
+
 * {
     box-sizing: border-box;
 }
 body {
     height: 100vh;
+    min-width: 300px;
 
     display: grid;
     grid-template-columns: 0.3fr auto;
     grid-template-rows: auto 1fr;
     grid-template-areas: 'header header'
                          'nav main'
-                         'nav main'
+                         'nav main';
+
+    font-family: 'Roboto', sans-serif;
 }
 
 header {
@@ -18,12 +23,47 @@ header {
     padding: 1rem;
     background-color: #333;
     color: #eee;
+
+    display: flex;
+    justify-content: space-between;
+
+    font-family: 'Yusei Magic', sans-serif;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+#burger::before {
+    content: '';
+    background: white;
+    border-bottom: 1px solid black;
+    border-bottom: inherit;
+}
+#burger {
+    display: flex;
+    flex-direction: column;
+    width: 50px;
+    justify-content: space-evenly;
+
+    content: '';
+    border-bottom: 5px solid white;
+
+    display: none;
+
+    cursor: pointer;
+}
+
+#burger::after {
+    content: '';
+    background: white;
+    border-bottom: inherit;
 }
 
 nav {
     grid-area: nav;
     padding: 2rem;
     background-color: #ddd;
+
+    font-size: 1.2rem;
 }
 
 .options {
@@ -32,15 +72,38 @@ nav {
 
 li {
     cursor: pointer;
-    padding-left: 0.5rem;
+    padding: 5px 0 5px 0.5rem;
+    border-radius: 5px;
+    
+    display: flex;
+    justify-content: space-between;
+}
+
+li:hover {
+    background-color: #ccc;
 }
 
 h1, li {
     margin-bottom: 1rem;
 }
 
+nav button#delete-btn {
+    background: inherit;
+    border: none;
+    font-weight: bold;
+    font-size: inherit;
+}
+
+nav button#add-btn {
+    background: inherit;
+    width: 100%;
+    padding: 5px;
+    border: 1px solid black;
+}
+
 h1 {
     font-weight: bold;
+    font-size: 2rem;
 }
 
 .projects h1 {
@@ -58,13 +121,17 @@ main {
 
 .content {
     text-align: center;
-    width: 50%;
+    max-width: 700px;
     margin: 1rem auto;
 }
 
 .taskContainer {
     display: flex;
     margin-bottom: 1rem;
+    align-items: center;
+    padding: 5px;
+
+    font-size: 1.2rem;
 }
 
 .taskContainer div {
@@ -73,4 +140,91 @@ main {
     gap: 1rem;
 }
 
+.taskContainer button {
+    border: none;
+    background: none;
+    padding: 1rem;
 
+    font-family: inherit;
+}
+
+.taskContainer button:first-child {
+    border: 2px solid #198754;
+}
+
+.taskContainer button:nth-child(2) {
+    border: 2px solid #ffc107;
+}
+
+.taskContainer button:last-child {
+    border: 2px solid #dc3545;
+}
+
+.add-task-btn {
+    padding: 10px;
+    border: 1px solid black;
+}
+
+footer {
+    position: absolute;
+    width: 100%;
+    height: 50px;
+    color: white;
+    bottom: 0;
+    background-color: #333;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.selected {
+    background-color: #ccc;
+    font-weight: bold;
+}
+
+.visible-block {
+    display: block;
+}
+
+/* Responsive */
+
+@media (width <= 1200px) {
+    body {
+        grid-template-areas: 'header header'
+                             'nav nav'
+                             'main main';
+
+        grid-template-rows: auto auto 1fr;
+
+                             
+    }
+
+    nav {
+        display: none;
+
+        margin-bottom: 1rem;
+        box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 12px;
+    }
+
+    #burger {
+        display: flex;
+    }
+}
+
+@media (width <= 767px) {
+    .content {
+        max-width: 500px;
+        font-size: 0.5rem;
+    }
+}
+
+@media (width <= 539px) {
+    .taskContainer {
+        font-size: 1rem;
+    }
+
+    .taskContainer button {
+        padding: 0.5rem;
+    }
+}
